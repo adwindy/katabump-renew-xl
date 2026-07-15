@@ -559,11 +559,11 @@ async function ensureScreenshotsDir() {
 
             // 1. 访问登录页
             console.log('访问登录页面...');
-            await page.goto('https://dashboard.katabump.com/auth/login', { waitUntil: 'domcontentloaded', timeout: 60000 });
+            await page.goto('https://dashboard.katabump.com/auth/login', { waitUntil: 'domcontentloaded', timeout: 120000 });
 
             // 登录页 Turnstile
-            await page.waitForTimeout(3000);
-            await solveTurnstileIfPresent(page, "登录阶段", 10, 5000);
+            await page.waitForTimeout(30000);
+            await solveTurnstileIfPresent(page, "登录阶段", 10, 50000);
 
             console.log('正在输入凭据...');
             try {
@@ -574,7 +574,7 @@ async function ensureScreenshotsDir() {
                 const pwdInput = page.getByRole('textbox', { name: 'Password' });
                 await pwdInput.fill(user.password);
 
-                await page.waitForTimeout(500);
+                await page.waitForTimeout(5000);
                 await page.getByRole('button', { name: 'Login', exact: true }).click();
 
                 // 检查登录错误
